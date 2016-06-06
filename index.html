@@ -19,53 +19,41 @@
     </section>
 
     <section class="main-content">
-      #### **OpenHealth**, a [web computing](https://en.wikipedia.org/wiki/Web_computing) sandbox to explore public health data.
-Live tool at https://mathbiol.github.io/openHealth.
+<h4 id="openhealth-a-web-computing-sandbox-to-explore-public-health-data."><strong>OpenHealth</strong>, a <a href="https://en.wikipedia.org/wiki/Web_computing">web computing</a> sandbox to explore public health data.</h4>
+<p>Live tool at https://mathbiol.github.io/openHealth.</p>
+<p>To incorporate openHealth into your tool/analysis, all you need is</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="kw">&lt;script</span><span class="ot"> src=</span><span class="st">&quot;https://mathbiol.github.io/openHealth/openHealth.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></code></pre>
+<p>or, if you have jQuery,</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">$</span>.<span class="fu">getScript</span>(<span class="st">&quot;https://mathbiol.github.io/openHealth/openHealth.js&quot;</span>)</code></pre>
+<p>OpenHealth is a stand alone JavaScript library to help interoperating with public data sources of Health data. It creates a single object, <strong>openHealth</strong> in the DOM namespace following the same &quot;namespace pollution&quot; approach common in analytical environments such as Matlab and R.</p>
+<h3 id="api-examples">API examples</h3>
+<p>Full documentation in the <a href="https://github.com/mathbiol/openHealth/wiki">wiki</a></p>
+<h4 id="soda-services">SODA services</h4>
+<p>A substancial number of Open Health Data resources are delivered through <a href="http://www.socrata.com/products/open-data-cloud-platform">Socrata</a> Open Data API webs services (<a href="http://dev.socrata.com/consumers/getting-started.html">SODA</a>).</p>
+<ul>
+<li><p>openHealth.soda(&quot;URL or URL reference&quot;,fun)</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// deliver first 1,000 entries that data to the console</span>
+<span class="ot">openHealth</span>.<span class="fu">soda</span>(<span class="st">&quot;NY Medicare Inpatient&quot;</span>) 
+<span class="co">// deliver that data to a global variable NYmed</span>
+<span class="ot">openHealth</span>.<span class="fu">soda</span>(<span class="st">&quot;NY Medicare Inpatient&quot;</span>,<span class="kw">function</span>(x){NYmed=x;<span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;done&quot;</span>)})
+<span class="co">// same data, using the URL directly</span>
+<span class="ot">openHealth</span>.<span class="fu">soda</span>(<span class="st">&quot;http://health.data.ny.gov/resource/2yck-xisk.json&quot;</span>) 
+<span class="co">// now get all 31,895 records in that dataset, in gulps of 10,000.</span>
+<span class="co">// the undefined second argument indicates no query constraints. It could be, for example, {limit:2000} </span>
+<span class="ot">openHealth</span>.<span class="fu">sodas</span>(<span class="st">&quot;NY Medicare Inpatient&quot;</span>,<span class="kw">undefined</span>,<span class="kw">function</span>(x){NYmed=x;<span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;done&quot;</span>)})
+<span class="co">// etc ...</span>
+<span class="co">// for list of URL references for SODA data see</span>
+<span class="ot">openHealth</span>.<span class="fu">sodaData</span></code></pre></li>
+</ul>
+<h3 id="application-examples">Application examples</h3>
+<p><a href="http://mathbiol.github.io/openHealth/?jobs/pqiSuffolk.js" target=_blank><img src="http://mathbiol.github.io/openHealth/jobs/pqi.png"></a></p>
+<ul>
+<li><a href="http://mathbiol.github.io/openHealth/?jobs/pqiSuffolk.js" target=_blank>Preventable diseases in Suffolk County</a> (snapshot above, uses health.data.ny.gov and census.gov).</li>
+<li><a href="http://mathbiol.github.io/openHealth/?jobs/sparcsSuffolk2012tabulateDiabetes.js" target=_blank>Hospital discharge of diabetic patients</a> (using health.data.ny.gov).</li>
+<li><a href="https://mathbiol.github.io/openHealth/?jobs/npi.js" target=_blank>Extracting national data from the Unique professional ID assigned by NPPES (PNI), and crossing it with CCN numbers from affiliated Hospitals</a> (using data.medicare.gov).</li>
+<li>...</li>
+</ul>
 
-To incorporate openHealth into your tool/analysis, all you need is 
-``` HTML
-<script src="https://mathbiol.github.io/openHealth/openHealth.js"></script>
-```
-or, if you have jQuery, 
-
-``` javascript
-$.getScript("https://mathbiol.github.io/openHealth/openHealth.js")
-```
-OpenHealth is a stand alone JavaScript library to help interoperating with public data sources of Health data. It creates a single object, **openHealth** in the DOM namespace following the same "namespace pollution" approach common in analytical environments such as Matlab and R.
-
-### API examples
-
-Full documentation in the [wiki](https://github.com/mathbiol/openHealth/wiki)
-
-#### SODA services
-
-A substancial number of Open Health Data resources are delivered through [Socrata](http://www.socrata.com/products/open-data-cloud-platform) Open Data API webs services ([SODA](http://dev.socrata.com/consumers/getting-started.html)).
-
-
-* openHealth.soda("URL or URL reference",fun)
-```` javascript
-// deliver first 1,000 entries that data to the console
-openHealth.soda("NY Medicare Inpatient") 
-// deliver that data to a global variable NYmed
-openHealth.soda("NY Medicare Inpatient",function(x){NYmed=x;console.log("done")})
-// same data, using the URL directly
-openHealth.soda("http://health.data.ny.gov/resource/2yck-xisk.json") 
-// now get all 31,895 records in that dataset, in gulps of 10,000.
-// the undefined second argument indicates no query constraints. It could be, for example, {limit:2000} 
-openHealth.sodas("NY Medicare Inpatient",undefined,function(x){NYmed=x;console.log("done")})
-// etc ...
-// for list of URL references for SODA data see
-openHealth.sodaData
-````
-
-### Application examples
-
-<a href="http://mathbiol.github.io/openHealth/?jobs/pqiSuffolk.js" target=_blank><img src="http://mathbiol.github.io/openHealth/jobs/pqi.png"></a>
-
-* <a href="http://mathbiol.github.io/openHealth/?jobs/pqiSuffolk.js" target=_blank>Preventable diseases in Suffolk County</a> (snapshot above, uses health.data.ny.gov and census.gov).
-* <a href="http://mathbiol.github.io/openHealth/?jobs/sparcsSuffolk2012tabulateDiabetes.js" target=_blank>Hospital discharge of diabetic patients</a> (using health.data.ny.gov).
-* <a href="https://mathbiol.github.io/openHealth/?jobs/npi.js" target=_blank>Extracting national data from the Unique professional ID assigned by NPPES (PNI), and crossing it with CCN numbers from affiliated Hospitals</a> (using data.medicare.gov).
-* ...
 
       <footer class="site-footer">
         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
